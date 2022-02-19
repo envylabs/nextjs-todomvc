@@ -64,7 +64,12 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
         </div>
         {isEditing && (
           <form onSubmit={persistTitle}>
-            <input className="edit" value={title} onChange={updateTitle} />
+            <input
+              autoFocus
+              className="edit"
+              onChange={updateTitle}
+              value={title}
+            />
           </form>
         )}
       </li>
