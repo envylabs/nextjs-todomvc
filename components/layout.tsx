@@ -13,8 +13,8 @@ const Layout: FC = ({ children }) => {
           <h1>todos</h1>
           <NewTodo />
         </header>
+        {children}
       </section>
-      {children}
       <footer className="info">
         <p>Double-click to edit a todo</p>
         <p>
