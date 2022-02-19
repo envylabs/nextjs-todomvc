@@ -1,45 +1,53 @@
+import { List } from 'immutable';
 import { Todo } from './todo';
 
 let id = 0;
 
-export class Store {
-  constructor(private todos: Todo[] = []) {}
+export function add(
+  todos: List<Todo>,
+  { isComplete, title }: Pick<Todo, 'isComplete' | 'title'>
+): List<Todo> {
+  const trimmedTitle = title.trim();
 
-  add(title: string, isComplete = false): void {
-    const trimmedTitle = title.trim();
+  if (trimmedTitle.length === 0) return todos;
 
-    if (trimmedTitle.length === 0) return;
+  const todo = Todo({
+    id: (++id).toString(),
+    isComplete,
+    title: trimmedTitle,
+  });
 
-    const todo = this.create(trimmedTitle, isComplete);
-    this.todos.push(todo);
-  }
+  return todos.push(todo);
+}
 
-  all(): Todo[] {
-    return this.todos;
-  }
+export function remove(todos: List<Todo>, todo: Todo): List<Todo> {
+  return todos.delete(todos.indexOf(todo));
+}
 
-  completeAll(): void {
-    this.todos.forEach((todo) => todo.complete());
-  }
+export function removeCompleted(todos: List<Todo>): List<Todo> {
+  return todos.filterNot((todo) => todo.isComplete);
+}
 
-  private create(title: string, isComplete = false): Todo {
-    return new Todo((++id).toString(), title, isComplete);
-  }
+export function updateAll(
+  todos: List<Todo>,
+  properties: Omit<Partial<Todo>, 'id'>
+): List<Todo> {
+  return todos.map((todo) => todo.merge(properties));
+}
 
-  get completed(): Todo[] {
-    return this.todos.filter((todo) => todo.isComplete);
-  }
+export function update(
+  todos: List<Todo>,
+  todo: Todo,
+  properties: Omit<Partial<Todo>, 'id'>
+): List<Todo> {
+  const index = todos.indexOf(todo);
+  const newTodo = Todo(Object.assign({}, todo, properties));
 
-  get isEmpty(): boolean {
-    return this.todos.length === 0;
-  }
+  return todos.update(index, (todo) => {
+    if (!todo) {
+      return Todo();
+    }
 
-  remove(todo: Todo): void {
-    this.todos = this.todos.filter((todo) => todo !== todo);
-  }
-
-  update(todo: Todo, properties: Partial<Todo>) {
-    todo.title = properties.title || todo.title;
-    todo.isComplete = properties.isComplete || todo.isComplete;
-  }
+    return todo?.merge(properties);
+  });
 }

@@ -1,23 +1,11 @@
-export class Todo {
-  constructor(
-    public readonly id: string,
-    public title: string,
-    public isComplete = false
-  ) {}
+import { Record } from 'immutable';
 
-  complete(): void {
-    this.isComplete = true;
-  }
+type Props = { id: string; title: string; isComplete: boolean };
 
-  resume(): void {
-    this.isComplete = false;
-  }
+export const Todo = Record<Props>({
+  id: '-1',
+  isComplete: false,
+  title: 'Untitled',
+});
 
-  updateTitle(title: string): void {
-    const trimmedTitle = title.trim();
-
-    if (trimmedTitle.length === 0) return;
-
-    this.title = trimmedTitle;
-  }
-}
+export type Todo = Record<Props> & Readonly<Props>;

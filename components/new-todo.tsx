@@ -1,11 +1,14 @@
+import { List } from 'immutable';
 import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react';
-import { Store } from '../models/store';
+import { add } from '../models/store';
+import { Todo } from '../models/todo';
 
 interface Props {
-  add: Store['add'];
+  setTodos: (todos: List<Todo>) => void;
+  todos: List<Todo>;
 }
 
-const NewTodo: FC<Props> = ({ add }) => {
+const NewTodo: FC<Props> = ({ setTodos, todos }) => {
   const [title, setTitle] = useState<string>('');
 
   const updateTitle: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -14,7 +17,7 @@ const NewTodo: FC<Props> = ({ add }) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    add(title);
+    setTodos(add(todos, { isComplete: false, title }));
     setTitle('');
   };
 

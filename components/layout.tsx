@@ -1,9 +1,15 @@
+import { List } from 'immutable';
 import Head from 'next/head';
 import { FC } from 'react';
-import { StoreContext } from '../contexts/store-context';
+import { Todo } from '../models/todo';
 import NewTodo from './new-todo';
 
-const Layout: FC = ({ children }) => {
+interface Props {
+  setTodos: (todos: List<Todo>) => void;
+  todos: List<Todo>;
+}
+
+const Layout: FC<Props> = ({ children, setTodos, todos }) => {
   return (
     <>
       <Head>
@@ -12,9 +18,7 @@ const Layout: FC = ({ children }) => {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <StoreContext.Consumer>
-            {(store) => <NewTodo add={store.add.bind(store)} />}
-          </StoreContext.Consumer>
+          <NewTodo setTodos={setTodos} todos={todos} />
         </header>
         {children}
       </section>
