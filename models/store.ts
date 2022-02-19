@@ -3,7 +3,8 @@ import { Todo } from './todo';
 export class Store {
   constructor(private todos: Todo[] = []) {}
 
-  add(todo: Todo): void {
+  add(title: string, isComplete = false): void {
+    const todo = new Todo(title, isComplete);
     this.todos.push(todo);
   }
 
