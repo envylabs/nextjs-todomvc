@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import NewTodo from './new-todo';
 
 const Layout: FunctionComponent = ({ children }) => {
   return (
@@ -6,11 +7,7 @@ const Layout: FunctionComponent = ({ children }) => {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <input
-            className="new-todo"
-            placeholder="What needs to be done?"
-            autoFocus={true}
-          />
+          <NewTodo />
         </header>
       </section>
       <footer className="info">
