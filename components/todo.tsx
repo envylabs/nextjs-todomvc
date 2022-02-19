@@ -27,6 +27,13 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
 
   const persistTitle: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+
+    if (title.trim() === '') {
+      setTodos(remove(todos, todo));
+      toggleIsEditing(false);
+      return;
+    }
+
     setTodos(update(todos, todo, { title }));
     setTitle(todo.title);
     toggleIsEditing(false);
