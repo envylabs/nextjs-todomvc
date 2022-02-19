@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { Todo as TodoModel } from '../models/todo';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { List } from 'immutable';
 import { remove, update } from '../models/store';
 
@@ -20,7 +20,7 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
   const [isEditing, toggleIsEditing] = useState(false);
   const [title, setTitle] = useState(todo.title);
 
-  const todoClasses = classnames({
+  const todoClasses = classNames({
     editing: isEditing,
     completed: !isEditing && todo.isComplete,
   });
