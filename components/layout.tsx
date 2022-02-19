@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { FC } from 'react';
+import { StoreContext } from '../contexts/store-context';
 import NewTodo from './new-todo';
 
 const Layout: FC = ({ children }) => {
@@ -11,7 +12,9 @@ const Layout: FC = ({ children }) => {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTodo />
+          <StoreContext.Consumer>
+            {(store) => <NewTodo add={store.add.bind(store)} />}
+          </StoreContext.Consumer>
         </header>
         {children}
       </section>
