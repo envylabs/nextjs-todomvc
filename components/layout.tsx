@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import NewTodo from './new-todo';
 
-const Layout: FunctionComponent = ({ children }) => {
+const Layout: FC = ({ children }) => {
   return (
     <>
       <section className="todoapp">
@@ -10,6 +10,7 @@ const Layout: FunctionComponent = ({ children }) => {
           <NewTodo />
         </header>
       </section>
+      {children}
       <footer className="info">
         <p>Double-click to edit a todo</p>
         <p>
