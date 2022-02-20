@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 export type Filter = 'all' | 'active' | 'completed';
 
 interface Props {
-  activeFilter?: string | string[] | undefined;
+  activeFilter: Filter;
   activeTodos: List<Todo>;
   setTodos: (todos: List<Todo>) => void;
   todos: List<Todo>;
@@ -42,7 +42,7 @@ export const Toolbar: FC<Props> = ({
           <Link href={{ query: { filter: 'all' } }}>
             <a
               className={classNames({
-                selected: !activeFilter || activeFilter === 'all',
+                selected: activeFilter === 'all',
               })}
             >
               {t('All')}
