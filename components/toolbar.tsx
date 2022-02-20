@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FC, MouseEventHandler } from 'react';
 import { removeCompleted } from '../models/store';
 import { Todo } from '../models/todo';
+import { useTranslations } from 'next-intl';
 
 export type Filter = 'all' | 'active' | 'completed';
 
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
+  const t = useTranslations();
   const clearCompleted: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     setTodos(removeCompleted(todos));
@@ -24,7 +26,10 @@ export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{todos.size}</strong> item left
+        {t.rich('n items left', {
+          count: todos.size,
+          strong: (children) => <strong>{children}</strong>,
+        })}
       </span>
       <ul className="filters">
         <li>
@@ -34,7 +39,7 @@ export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
                 selected: !activeFilter || activeFilter === 'all',
               })}
             >
-              All
+              {t('All')}
             </a>
           </Link>
         </li>
@@ -45,7 +50,7 @@ export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
                 selected: activeFilter === 'active',
               })}
             >
-              Active
+              {t('Active')}
             </a>
           </Link>
         </li>
@@ -56,14 +61,14 @@ export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
                 selected: activeFilter === 'completed',
               })}
             >
-              Completed
+              {t('Completed')}
             </a>
           </Link>
         </li>
       </ul>
       {anyCompleted && (
         <button className="clear-completed" onClick={clearCompleted}>
-          Clear completed
+          {t('Clear completed')}
         </button>
       )}
     </footer>

@@ -3,6 +3,7 @@ import { ChangeEventHandler, FC } from 'react';
 import { updateAll } from '../models/store';
 import { Todo } from '../models/todo';
 import TodoComponent from './todo';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const TodoList: FC<Props> = ({ setTodos, todos }) => {
+  const t = useTranslations();
   const isAllComplete = todos.every((todo) => todo.isComplete);
 
   const toggleAllIsComplete: ChangeEventHandler<HTMLInputElement> = () => {
@@ -27,7 +29,7 @@ const TodoList: FC<Props> = ({ setTodos, todos }) => {
         onChange={toggleAllIsComplete}
         type="checkbox"
       />
-      <label htmlFor="toggle-all">Mark all as complete</label>
+      <label htmlFor="toggle-all">{t('Mark all as complete')}</label>
       <ul className="todo-list">
         {todos.map((todo) => (
           <TodoComponent

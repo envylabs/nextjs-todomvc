@@ -2,6 +2,7 @@ import { List } from 'immutable';
 import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react';
 import { add } from '../models/store';
 import { Todo } from '../models/todo';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;
@@ -10,6 +11,7 @@ interface Props {
 
 const NewTodo: FC<Props> = ({ setTodos, todos }) => {
   const [title, setTitle] = useState<string>('');
+  const t = useTranslations();
 
   const updateTitle: ChangeEventHandler<HTMLInputElement> = (event) => {
     setTitle(event.currentTarget.value);
@@ -27,7 +29,7 @@ const NewTodo: FC<Props> = ({ setTodos, todos }) => {
         autoFocus={true}
         className="new-todo"
         onChange={updateTitle}
-        placeholder="What needs to be done?"
+        placeholder={t('What needs to be done?')}
         value={title}
       />
     </form>

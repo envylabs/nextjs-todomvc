@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import TodoList from '../components/todo-list';
 import { Filter, Toolbar } from '../components/toolbar';
@@ -50,6 +50,14 @@ const Home: NextPage<Props> = ({ setTodos, todos }) => {
       </>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      messages: (await import(`../messages/${locale}.json`)).default,
+    },
+  };
 };
 
 export default Home;

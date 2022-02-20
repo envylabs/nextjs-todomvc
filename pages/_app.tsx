@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Todo } from '../models/todo';
 import { List } from 'immutable';
 import { add } from '../models/store';
+import { NextIntlProvider } from 'next-intl';
 
 function MyApp({ Component, pageProps }: AppProps) {
   let initialTodos = List<Todo>([]);
@@ -21,9 +22,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [todos, setTodos] = useState(initialTodos);
 
   return (
-    <Layout setTodos={setTodos} todos={todos}>
-      <Component {...pageProps} setTodos={setTodos} todos={todos} />
-    </Layout>
+    <NextIntlProvider messages={pageProps.messages}>
+      <Layout setTodos={setTodos} todos={todos}>
+        <Component {...pageProps} setTodos={setTodos} todos={todos} />
+      </Layout>
+    </NextIntlProvider>
   );
 }
 
