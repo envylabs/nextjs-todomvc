@@ -34,10 +34,10 @@ const Layout: FC<Props> = ({ children, setTodos, todos }) => {
           })}
         </p>
         <p>
-          <Link href="" locale="en">
+          <Link href="/" locale="en">
             {t('en')}
           </Link>
-          <Link href="" locale="es">
+          <Link href="/" locale="es">
             {t('es')}
           </Link>
         </p>
