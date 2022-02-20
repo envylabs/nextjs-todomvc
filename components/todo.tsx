@@ -25,18 +25,23 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
     completed: !isEditing && todo.isComplete,
   });
 
-  const persistTitle: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
+  const persistTitle = () => {
+    const value = title.trim();
 
-    if (title.trim() === '') {
+    if (value.length === 0) {
       setTodos(remove(todos, todo));
       toggleIsEditing(false);
       return;
     }
 
-    setTodos(update(todos, todo, { title }));
-    setTitle(todo.title);
+    setTodos(update(todos, todo, { title: value }));
+    setTitle(value);
     toggleIsEditing(false);
+  };
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    persistTitle();
   };
 
   const toggleIsComplete: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -70,10 +75,11 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
           <button className="destroy" onClick={removeTodo}></button>
         </div>
         {isEditing && (
-          <form onSubmit={persistTitle}>
+          <form onSubmit={onSubmit}>
             <input
               autoFocus
               className="edit"
+              onBlur={persistTitle}
               onChange={updateTitle}
               value={title}
             />
