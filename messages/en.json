@@ -7,7 +7,7 @@
   "en": "English",
   "es": "Español",
   "Mark all as complete": "Mark all as complete",
-  "n items left": "{count, plural, =0 {<strong>#</strong> items left} =1 {<strong>#</strong> item left} other {<strong>#</strong> items left}}",
+  "n items left": "<strong>{count}</strong> {count, plural, =0 {items} =1 {item} other {items}} left",
   "PageTitle": "Next.js • TodoMVC",
   "Part of <link>TodoMVC</link>": "Part of <link>TodoMVC</link>",
   "todos": "todos",
