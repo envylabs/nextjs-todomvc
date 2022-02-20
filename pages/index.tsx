@@ -45,7 +45,12 @@ const Home: NextPage<Props> = ({ setTodos, todos }) => {
       <>
         <TodoList setTodos={setTodos} todos={filteredTodos} />
         {todos.size > 0 && (
-          <Toolbar activeFilter={filter} setTodos={setTodos} todos={todos} />
+          <Toolbar
+            activeFilter={filter}
+            activeTodos={filterTodos(todos, 'active')}
+            setTodos={setTodos}
+            todos={todos}
+          />
         )}
       </>
     </>

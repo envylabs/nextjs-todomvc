@@ -10,11 +10,17 @@ export type Filter = 'all' | 'active' | 'completed';
 
 interface Props {
   activeFilter?: string | string[] | undefined;
+  activeTodos: List<Todo>;
   setTodos: (todos: List<Todo>) => void;
   todos: List<Todo>;
 }
 
-export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
+export const Toolbar: FC<Props> = ({
+  activeFilter,
+  activeTodos,
+  setTodos,
+  todos,
+}) => {
   const t = useTranslations();
   const clearCompleted: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -27,7 +33,7 @@ export const Toolbar: FC<Props> = ({ activeFilter, setTodos, todos }) => {
     <footer className="footer">
       <span className="todo-count">
         {t.rich('n items left', {
-          count: todos.size,
+          count: activeTodos.size,
           strong: (children) => <strong>{children}</strong>,
         })}
       </span>
