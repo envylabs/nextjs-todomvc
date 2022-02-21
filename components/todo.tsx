@@ -2,6 +2,7 @@ import {
   ChangeEventHandler,
   FC,
   FormEventHandler,
+  KeyboardEventHandler,
   MouseEventHandler,
   useState,
 } from 'react';
@@ -63,6 +64,14 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
     setTitle(event.currentTarget.value);
   };
 
+  const revertForEscape: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      toggleIsEditing(false);
+      setTitle(todo.title);
+    }
+  };
+
   return (
     <>
       <li className={todoClasses}>
@@ -89,6 +98,7 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
               className="edit"
               onBlur={persistTitle}
               onChange={updateTitle}
+              onKeyDown={revertForEscape}
               value={title}
             />
           </form>
