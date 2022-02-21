@@ -84,6 +84,7 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
         {isEditing && (
           <form onSubmit={onSubmit}>
             <input
+              aria-label={t('Edit title', { title: todo.title })}
               autoFocus
               className="edit"
               onBlur={persistTitle}
