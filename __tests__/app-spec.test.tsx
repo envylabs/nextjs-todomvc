@@ -7,22 +7,39 @@ import Home from '../pages/index';
 import * as messages from '../messages/en.json';
 
 describe('TodoMVC App Spec', () => {
-  it('hides #main and #footer with no todos', async () => {
-    mockUseRouter({});
+  describe('No todos', () => {
+    it('hides the #main content', async () => {
+      mockUseRouter({});
 
-    const todos: List<Todo> = List([]);
-    const setTodos = (todos: List<Todo>) => {};
+      const todos: List<Todo> = List([]);
+      const setTodos = (todos: List<Todo>) => {};
 
-    await render(
-      <NextIntlProvider locale="en" messages={messages}>
-        <Home setTodos={setTodos} todos={todos} />
-      </NextIntlProvider>
-    );
+      await render(
+        <NextIntlProvider locale="en" messages={messages}>
+          <Home setTodos={setTodos} todos={todos} />
+        </NextIntlProvider>
+      );
 
-    const completeToggle = screen.queryByText('Mark all as complete');
-    const itemCount = screen.queryByText('0 items left');
+      const completeToggle = screen.queryByText('Mark all as complete');
 
-    expect(completeToggle).not.toBeInTheDocument();
-    expect(itemCount).not.toBeInTheDocument();
+      expect(completeToggle).not.toBeInTheDocument();
+    });
+
+    it('hides the #footer content', async () => {
+      mockUseRouter({});
+
+      const todos: List<Todo> = List([]);
+      const setTodos = (todos: List<Todo>) => {};
+
+      await render(
+        <NextIntlProvider locale="en" messages={messages}>
+          <Home setTodos={setTodos} todos={todos} />
+        </NextIntlProvider>
+      );
+
+      const itemCount = screen.queryByText('0 items left');
+
+      expect(itemCount).not.toBeInTheDocument();
+    });
   });
 });
