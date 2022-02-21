@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import TodoList from '../components/todo-list';
 import { Filter, Toolbar } from '../components/toolbar';
 import { Todo } from '../models/todo';
+import Layout from '../components/layout';
 
 function normalizeFilter(filter: unknown): Filter {
   switch (filter) {
@@ -41,19 +42,17 @@ const Home: NextPage<Props> = ({ setTodos, todos }) => {
   const filteredTodos = filterTodos(todos, filter);
 
   return (
-    <>
-      <>
-        <TodoList setTodos={setTodos} todos={filteredTodos} />
-        {todos.size > 0 && (
-          <Toolbar
-            activeFilter={filter}
-            activeTodos={filterTodos(todos, 'active')}
-            setTodos={setTodos}
-            todos={todos}
-          />
-        )}
-      </>
-    </>
+    <Layout setTodos={setTodos} todos={todos}>
+      <TodoList setTodos={setTodos} todos={filteredTodos} />
+      {todos.size > 0 && (
+        <Toolbar
+          activeFilter={filter}
+          activeTodos={filterTodos(todos, 'active')}
+          setTodos={setTodos}
+          todos={todos}
+        />
+      )}
+    </Layout>
   );
 };
 

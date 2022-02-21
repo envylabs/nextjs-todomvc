@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Layout from '../components/layout';
 import 'todomvc-app-css/index.css';
 import { useState } from 'react';
 import { Todo } from '../models/todo';
@@ -23,9 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <NextIntlProvider messages={pageProps.messages}>
-      <Layout setTodos={setTodos} todos={todos}>
-        <Component {...pageProps} setTodos={setTodos} todos={todos} />
-      </Layout>
+      <Component {...pageProps} setTodos={setTodos} todos={todos} />
     </NextIntlProvider>
   );
 }
