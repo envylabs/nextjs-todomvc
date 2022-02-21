@@ -9,6 +9,7 @@ import { Todo as TodoModel } from '../models/todo';
 import classNames from 'classnames';
 import { List } from 'immutable';
 import { remove, update } from '../models/store';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   setTodos: (todos: List<TodoModel>) => void;
@@ -19,6 +20,7 @@ interface Props {
 const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
   const [isEditing, toggleIsEditing] = useState(false);
   const [title, setTitle] = useState(todo.title);
+  const t = useTranslations();
 
   const todoClasses = classNames({
     editing: isEditing,
@@ -66,13 +68,18 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
       <li className={todoClasses}>
         <div className="view">
           <input
+            aria-label={t('Complete title', { title: todo.title })}
             className="toggle"
             type="checkbox"
             checked={todo.isComplete}
             onChange={toggleIsComplete}
           />
           <label onDoubleClick={toggleEditing}>{todo.title}</label>
-          <button className="destroy" onClick={removeTodo}></button>
+          <button
+            aria-label={t('Remove title', { title: todo.title })}
+            className="destroy"
+            onClick={removeTodo}
+          ></button>
         </div>
         {isEditing && (
           <form onSubmit={onSubmit}>
