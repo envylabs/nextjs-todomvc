@@ -35,11 +35,15 @@ const Layout: FC<Props> = ({ children, setTodos, todos }) => {
         </p>
         <p>
           <Link href="/" locale="en">
-            {t('en')}
+            <a hrefLang="en" lang="en" rel="alternate">
+              {t('en')}
+            </a>
           </Link>
           <span> </span>
           <Link href="/" locale="es">
-            {t('es')}
+            <a hrefLang="es" lang="es" rel="alternate">
+              {t('es')}
+            </a>
           </Link>
         </p>
       </footer>
