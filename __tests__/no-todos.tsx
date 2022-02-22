@@ -1,6 +1,9 @@
 import { screen } from '@testing-library/react';
 import { setupApp } from '../utils/setup-app';
 
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
+
 describe('TodoMVC App Spec', () => {
   beforeEach(async () => {
     await setupApp();

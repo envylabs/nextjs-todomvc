@@ -3,6 +3,9 @@ import { setupApp } from '../utils/setup-app';
 import { findNewTodoInput } from '../utils/find-new-todo-input';
 import { addTodo } from '../utils/add-todo';
 
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
+
 describe('TodoMVC App Spec', () => {
   beforeEach(async () => {
     await setupApp();

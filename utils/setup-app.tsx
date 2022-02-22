@@ -1,8 +1,7 @@
-import { render } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 import { List } from 'immutable';
 import { NextIntlProvider } from 'next-intl';
 import { Todo } from '../models/todo';
-import { mockUseRouter } from './mock-use-router';
 import Home from '../pages/index';
 import * as messages from '../messages/en.json';
 
@@ -20,8 +19,7 @@ function newApp(
 export async function setupApp(
   initialTodos: List<Todo> = List([])
 ): Promise<void> {
-  let rerender: (ui: React.ReactElement) => void;
-  mockUseRouter({});
+  let rerender: RenderResult['rerender'];
 
   const setTodos = (newTodos: List<Todo>) => {
     rerender(newApp(setTodos, newTodos));

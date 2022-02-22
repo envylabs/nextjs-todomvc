@@ -3,6 +3,9 @@ import { setupApp } from '../utils/setup-app';
 import { addTodo } from '../utils/add-todo';
 import { completeTodo } from '../utils/complete-todo';
 
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
+
 function itemCount(): string {
   const COUNT_REGEX = /^(\d+) items? left$/;
   const countElement = screen.getByText((content, element) => {

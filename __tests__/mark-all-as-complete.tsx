@@ -5,6 +5,9 @@ import { addTodo } from '../utils/add-todo';
 import { isCompleted } from '../utils/is-completed';
 import { completeTodo } from '../utils/complete-todo';
 
+jest.mock('next/router', () => require('next-router-mock'));
+jest.mock('next/dist/client/router', () => require('next-router-mock'));
+
 describe('TodoMVC App Spec', () => {
   beforeEach(async () => {
     await setupApp();
