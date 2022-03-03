@@ -8,6 +8,8 @@ function keyObject<T extends readonly string[]>(
   return Object.fromEntries(array.map((value) => [value, null])) as any;
 }
 
+const DEFAULT_TIME_ZONE = 'America/New_York';
+
 const WorldTimeAPIResponse = t.type({
   abbreviation: t.string,
   client_ip: t.string,
@@ -30,11 +32,10 @@ export function isKnownTimezone(timezone: string): boolean {
   return api.timezones.includes(timezone);
 }
 
-export async function getCurrentTime(
-  timezone: string = 'America/New_York'
-): Promise<Date> {
+export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   let response: Response;
   let rawResponseBody: unknown;
+  timezone = timezone || DEFAULT_TIME_ZONE;
 
   if (!isKnownTimezone(timezone)) {
     throw new Error(`Unknown timezone requested: ${timezone}`);
