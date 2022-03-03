@@ -1,6 +1,7 @@
 import { isLeft } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
 import api from './world-time-api.timezones.json';
+import prettyReporter from 'io-ts-reporters';
 
 function keyObject<T extends readonly string[]>(
   array: T
@@ -58,7 +59,7 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   const parsedResponseBody = WorldTimeAPIResponse.decode(rawResponseBody);
 
   if (isLeft(parsedResponseBody)) {
-    throw new Error(JSON.stringify(parsedResponseBody.left));
+    throw new Error(prettyReporter.report(parsedResponseBody).join(', '));
   }
 
   try {
