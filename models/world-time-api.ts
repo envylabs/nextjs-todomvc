@@ -1,6 +1,6 @@
 import { isLeft } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
-import * as api from './world-time-api.timezones.json';
+import api from './world-time-api.timezones.json';
 
 function keyObject<T extends readonly string[]>(
   array: T
