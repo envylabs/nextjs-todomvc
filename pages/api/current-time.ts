@@ -5,8 +5,12 @@ import { isLeft } from 'fp-ts/lib/Either';
 import { optional, sparseType } from 'io-ts-extra';
 import prettyReporter from 'io-ts-reporters';
 
-const RequestPayload = sparseType({
+export const RequestPayload = sparseType({
   timezone: optional(t.string),
+});
+
+export const ResponsePayload = t.type({
+  time: t.string,
 });
 
 const handler: NextApiHandler = async (request, response) => {

@@ -1,19 +1,25 @@
+import axios, { AxiosResponse } from 'axios';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import useSWR, { Fetcher } from 'swr';
-import { fetchWithTimeout } from '../models/world-time-api';
+import * as t from 'io-ts';
+import { isLeft } from 'fp-ts/lib/Either';
+import prettyReporter from 'io-ts-reporters';
+import { ResponsePayload } from '../pages/api/current-time';
 
 const currentTimeFetcher: Fetcher<Date> = async (
   url: string
 ): Promise<Date> => {
-  const response = await fetchWithTimeout(url);
+  const response = await axios.get<t.TypeOf<typeof ResponsePayload>>(url, {
+    timeout: 5000,
+  });
+  const parsedResponseBody = ResponsePayload.decode(response.data);
 
-  if (!response.ok) {
-    throw new Error('An error occurred while fetching the data.');
+  if (isLeft(parsedResponseBody)) {
+    throw new Error(prettyReporter.report(parsedResponseBody).join(', '));
   }
 
-  const responseBody = await response.json();
-  return new Date(responseBody.time);
+  return new Date(parsedResponseBody.right.time);
 };
 
 export const useCurrentTime = () => {
@@ -28,6 +34,7 @@ export const useCurrentTime = () => {
 
 export const CurrentTime: FC = () => {
   const t = useTranslations();
+
   const { isError, isLoading, time } = useCurrentTime();
 
   if (isError) return <div>{t('The time could not be loaded')}</div>;

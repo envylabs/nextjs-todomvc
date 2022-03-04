@@ -2,6 +2,7 @@ import { isLeft } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
 import api from './world-time-api.timezones.json';
 import prettyReporter from 'io-ts-reporters';
+import axios, { AxiosResponse } from 'axios';
 
 function keyObject<T extends readonly string[]>(
   array: T
@@ -33,20 +34,8 @@ export function isKnownTimezone(timezone: string): boolean {
   return api.timezones.includes(timezone);
 }
 
-export async function fetchWithTimeout(
-  input: RequestInfo,
-  init?: RequestInit
-): Promise<Response> {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), 5000);
-  const response = await fetch(input, { ...init, signal: controller.signal });
-  clearTimeout(id);
-  return response;
-}
-
 export async function getCurrentTime(timezone?: string | null): Promise<Date> {
-  let response: Response;
-  let rawResponseBody: unknown;
+  let response: AxiosResponse;
   timezone = timezone || DEFAULT_TIME_ZONE;
 
   if (!isKnownTimezone(timezone)) {
@@ -54,22 +43,16 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   }
 
   try {
-    response = await fetchWithTimeout(
-      `https://worldtimeapi.org/api/timezone/${timezone}`
+    response = await axios.get(
+      `https://worldtimeapi.org/api/timezone/${timezone}`,
+      { timeout: 5000 }
     );
   } catch (error) {
     console.error(error);
     throw error;
   }
 
-  try {
-    rawResponseBody = await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-
-  const parsedResponseBody = WorldTimeAPIResponse.decode(rawResponseBody);
+  const parsedResponseBody = WorldTimeAPIResponse.decode(response.data);
 
   if (isLeft(parsedResponseBody)) {
     throw new Error(prettyReporter.report(parsedResponseBody).join(', '));
