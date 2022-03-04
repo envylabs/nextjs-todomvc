@@ -4,6 +4,7 @@ import { NextIntlProvider } from 'next-intl';
 import { Todo } from '../models/todo';
 import Home from '../pages/index';
 import * as messages from '../messages/en.json';
+import { act } from 'react-dom/test-utils';
 
 function newApp(
   setTodos: (todos: List<Todo>) => void,
@@ -25,6 +26,8 @@ export async function setupApp(
     rerender(newApp(setTodos, newTodos));
   };
 
-  const renderResult = await render(newApp(setTodos, initialTodos));
-  rerender = renderResult.rerender;
+  await act(async () => {
+    const renderResult = await render(newApp(setTodos, initialTodos));
+    rerender = renderResult.rerender;
+  });
 }
