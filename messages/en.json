@@ -14,5 +14,8 @@
   "Part of <link>TodoMVC</link>": "Part of <link>TodoMVC</link>",
   "Remove title": "Remove {title}",
   "todos": "todos",
+  "The time is t": "The time is {timestamp, date, long} at {timestamp, time, long}",
+  "The time could not be loaded": "The time could not be loaded",
+  "The time is loading": "The time is loading",
   "What needs to be done?": "What needs to be done?"
 }

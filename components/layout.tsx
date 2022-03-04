@@ -5,6 +5,7 @@ import { Todo } from '../models/todo';
 import NewTodo from './new-todo';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { CurrentTime } from './current-time';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;
@@ -46,6 +47,7 @@ const Layout: FC<Props> = ({ children, setTodos, todos }) => {
             </a>
           </Link>
         </p>
+        <CurrentTime />
       </footer>
     </>
   );
