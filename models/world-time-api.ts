@@ -33,6 +33,17 @@ export function isKnownTimezone(timezone: string): boolean {
   return api.timezones.includes(timezone);
 }
 
+export async function fetchWithTimeout(
+  input: RequestInfo,
+  init?: RequestInit
+): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 5000);
+  const response = await fetch(input, { ...init, signal: controller.signal });
+  clearTimeout(id);
+  return response;
+}
+
 export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   let response: Response;
   let rawResponseBody: unknown;
@@ -43,7 +54,9 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   }
 
   try {
-    response = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`);
+    response = await fetchWithTimeout(
+      `https://worldtimeapi.org/api/timezone/${timezone}`
+    );
   } catch (error) {
     console.error(error);
     throw error;
@@ -60,12 +73,6 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
 
   if (isLeft(parsedResponseBody)) {
     throw new Error(prettyReporter.report(parsedResponseBody).join(', '));
-  }
-
-  try {
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 
   return new Date(parsedResponseBody.right.datetime);
