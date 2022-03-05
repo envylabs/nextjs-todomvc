@@ -12,7 +12,9 @@ const CSR: NextPage<DefaultProps> = ({ setTodos, todos }) => {
   return (
     <Layout setTodos={setTodos} todos={todos}>
       <section className="main">
-        <p>{!isServer() && <CurrentTime />}</p>
+        <p>
+          <CurrentTime />
+        </p>
         <p>
           <Link href="/">{t('todos')}</Link>
         </p>

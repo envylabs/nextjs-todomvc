@@ -6,6 +6,7 @@ import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/lib/Either';
 import prettyReporter from 'io-ts-reporters';
 import { ResponsePayload } from '../pages/api/current-time';
+import { isServer } from '../utils/is-server';
 
 const currentTimeFetcher: Fetcher<Date> = async (
   url: string
@@ -34,10 +35,14 @@ export const useCurrentTime = () => {
 
 export const CurrentTime: FC = () => {
   const t = useTranslations();
+
+  if (isServer()) return <span>{t('The time is loading')}</span>;
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { isError, isLoading, time } = useCurrentTime();
 
-  if (isError) return <div>{t('The time could not be loaded')}</div>;
-  if (isLoading) return <div>{t('The time is loading')}</div>;
+  if (isError) return <span>{t('The time could not be loaded')}</span>;
+  if (isLoading) return <span>{t('The time is loading')}</span>;
 
   if (!time) {
     throw new Error('time did not load');
