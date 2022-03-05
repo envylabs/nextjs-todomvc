@@ -34,11 +34,18 @@ export const useCurrentTime = () => {
 
 export const CurrentTime: FC = () => {
   const t = useTranslations();
-
   const { isError, isLoading, time } = useCurrentTime();
 
   if (isError) return <div>{t('The time could not be loaded')}</div>;
   if (isLoading) return <div>{t('The time is loading')}</div>;
 
-  return <time>{t('The time is t', { timestamp: time })}</time>;
+  if (!time) {
+    throw new Error('time did not load');
+  }
+
+  return (
+    <time dateTime={time.toISOString()}>
+      {t('The time is t', { timestamp: time })}
+    </time>
+  );
 };
