@@ -11,6 +11,7 @@
     "lint": "next lint --cache",
     "start": "next start",
     "test:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
+    "test:dev": "start-server-and-test dev http://localhost:3000 cypress",
     "test": "start-server-and-test start http://localhost:3000 cypress"
   },
   "dependencies": {
