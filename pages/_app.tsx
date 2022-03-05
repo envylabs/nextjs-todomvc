@@ -7,6 +7,11 @@ import { List } from 'immutable';
 import { add } from '../models/store';
 import { NextIntlProvider } from 'next-intl';
 
+export interface DefaultProps {
+  setTodos: (todos: List<Todo>) => void;
+  todos: List<Todo>;
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   let initialTodos = List<Todo>([]);
   initialTodos = add(initialTodos, {

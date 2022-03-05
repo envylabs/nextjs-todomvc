@@ -5,6 +5,7 @@ import TodoList from '../components/todo-list';
 import { Filter, Toolbar } from '../components/toolbar';
 import { Todo } from '../models/todo';
 import Layout from '../components/layout';
+import { DefaultProps } from './_app';
 
 function normalizeFilter(filter: unknown): Filter {
   switch (filter) {
@@ -30,12 +31,7 @@ function filterTodos(todos: List<Todo>, filter: Filter): List<Todo> {
   }
 }
 
-interface Props {
-  setTodos: (todos: List<Todo>) => void;
-  todos: List<Todo>;
-}
-
-const Home: NextPage<Props> = ({ setTodos, todos }) => {
+const Home: NextPage<DefaultProps> = ({ setTodos, todos }) => {
   const router = useRouter();
   const { filter: rawFilter } = router.query;
   const filter = normalizeFilter(rawFilter);
