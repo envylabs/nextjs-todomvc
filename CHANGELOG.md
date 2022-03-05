@@ -1,3 +1,19 @@
+# [0.3.0](https://github.com/envylabs/nextjs-todomvc/compare/v0.2.0...v0.3.0) (2022-03-05)
+
+
+### Bug Fixes
+
+* current client- and server-side mismatches ([23aaea3](https://github.com/envylabs/nextjs-todomvc/commit/23aaea3f53339f84a59bf2eb8d8f8ca49bad895f))
+* handle request exceptions in SSR props ([e405bf3](https://github.com/envylabs/nextjs-todomvc/commit/e405bf3d66206932a88b6539af289956bf7376d7))
+
+
+### Features
+
+* simplifyWorldTimeAPI response with sparseType ([0091f01](https://github.com/envylabs/nextjs-todomvc/commit/0091f018b9f7fd84630460f0657a55f39a7e33a5))
+* use HTTP 503 to indicate upstream issue ([6ea2e83](https://github.com/envylabs/nextjs-todomvc/commit/6ea2e83e7d3e7c3f22475a77ff8811adc1b84118))
+
+
+
 # [0.2.0](https://github.com/envylabs/nextjs-todomvc/compare/v0.1.0...v0.2.0) (2022-03-05)
 
 
