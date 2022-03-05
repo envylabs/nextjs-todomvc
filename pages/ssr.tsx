@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<Partial<Props>> = async ({
   locale,
 }) => {
   let currentTime: Date;
-  let encodedTime: string = '';
+  let encodedTime = '';
   let isErred = false;
 
   try {

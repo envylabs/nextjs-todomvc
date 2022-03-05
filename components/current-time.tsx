@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import useSWR, { Fetcher } from 'swr';

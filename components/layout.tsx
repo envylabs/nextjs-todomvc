@@ -5,7 +5,6 @@ import { Todo } from '../models/todo';
 import NewTodo from './new-todo';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { CurrentTime } from './current-time';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;

@@ -4,7 +4,6 @@ import { DefaultProps } from './_app';
 import { CurrentTime } from '../components/current-time';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { isServer } from '../utils/is-server';
 
 const CSR: NextPage<DefaultProps> = ({ setTodos, todos }) => {
   const t = useTranslations();
