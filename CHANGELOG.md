@@ -1,4 +1,20 @@
-# 0.1.0 (2022-03-04)
+# [0.2.0](https://github.com/envylabs/nextjs-todomvc/compare/v0.1.0...v0.2.0) (2022-03-05)
+
+
+### Bug Fixes
+
+* uses non-TLS endpoint for worldtimeapi ([8a00335](https://github.com/envylabs/nextjs-todomvc/commit/8a00335709e98bae16a758ef5f67166bb36a1351))
+
+
+### Features
+
+* add datetime attribute to CurrentTime tag ([b289aad](https://github.com/envylabs/nextjs-todomvc/commit/b289aad149e407146089ff14c6a6dc9b43e18ffe))
+* extract DefaultProps ([0e48b7d](https://github.com/envylabs/nextjs-todomvc/commit/0e48b7d04d3fc251fd4f408f03c633d0873893ce))
+* provde client- and server-side query pages ([79540af](https://github.com/envylabs/nextjs-todomvc/commit/79540af759391152dbd05fe66ca80268d29c1e09))
+
+
+
+# [0.1.0](https://github.com/envylabs/nextjs-todomvc/compare/f783bfe9aa5931d37f866accc9c71a6cac0f7985...v0.1.0) (2022-03-04)
 
 
 ### Bug Fixes
