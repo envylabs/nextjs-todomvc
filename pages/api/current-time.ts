@@ -42,7 +42,7 @@ const handler: NextApiHandler = async (request, response) => {
     time = await getCurrentTime(timezone);
   } catch (error) {
     console.error(error);
-    response.status(500).json({
+    response.status(503).json({
       error: error instanceof Error ? error.message : 'An error occurred',
     });
     return;
