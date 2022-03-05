@@ -47,7 +47,11 @@ const Layout: FC<Props> = ({ children, setTodos, todos }) => {
             </a>
           </Link>
         </p>
-        <CurrentTime />
+        <p>
+          <Link href="/csr">{t('client-side request')}</Link>
+          <span> </span>
+          <Link href="/ssr">{t('server-side request')}</Link>
+        </p>
       </footer>
     </>
   );

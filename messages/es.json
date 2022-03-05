@@ -2,8 +2,9 @@
   "Active": "Activo",
   "All": "Todos",
   "Clear completed": "Despejado completo",
-  "Completed": "Terminado",
+  "client-side request": "solicitud del lado del cliente",
   "Complete title": "{title} completa",
+  "Completed": "Terminado",
   "Double-click to edit a todo": "Haga doble clic para editar una tarea pendiente",
   "Edit title": "Editar {title}",
   "en": "English",
@@ -13,9 +14,10 @@
   "PageTitle": "Next.js • TodoMVC",
   "Part of <link>TodoMVC</link>": "Parte de <link>TodoMVC</link>",
   "Remove title": "Quitar {title}",
-  "todos": "que hacer",
-  "The time is t": "La hora es el {timestamp, date, long} a las {timestamp, time, long}",
+  "server-side request": "solicitud del lado del servidor",
   "The time could not be loaded": "No se pudo cargar la hora",
   "The time is loading": "El tiempo esta cargando",
+  "The time is t": "La hora es el {timestamp, date, long} a las {timestamp, time, long}",
+  "todos": "que hacer",
   "What needs to be done?": "¿Lo que hay que hacer?"
 }

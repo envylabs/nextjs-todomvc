@@ -2,8 +2,9 @@
   "Active": "Active",
   "All": "All",
   "Clear completed": "Clear completed",
-  "Completed": "Completed",
+  "client-side request": "client-side request",
   "Complete title": "Complete {title}",
+  "Completed": "Completed",
   "Double-click to edit a todo": "Double-click to edit a todo",
   "Edit title": "Edit {title}",
   "en": "English",
@@ -13,9 +14,10 @@
   "PageTitle": "Next.js • TodoMVC",
   "Part of <link>TodoMVC</link>": "Part of <link>TodoMVC</link>",
   "Remove title": "Remove {title}",
-  "todos": "todos",
-  "The time is t": "The time is {timestamp, date, long} at {timestamp, time, long}",
+  "server-side request": "server-side request",
   "The time could not be loaded": "The time could not be loaded",
   "The time is loading": "The time is loading",
+  "The time is t": "The time is {timestamp, date, long} at {timestamp, time, long}",
+  "todos": "todos",
   "What needs to be done?": "What needs to be done?"
 }
