@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/envylabs/nextjs-todomvc/compare/v0.3.0...v0.3.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* anchor the /api request ([faaf285](https://github.com/envylabs/nextjs-todomvc/commit/faaf28595a8ad2adc6b869154ce9cb55da40bf4b))
+
+
+
 # [0.3.0](https://github.com/envylabs/nextjs-todomvc/compare/v0.2.0...v0.3.0) (2022-03-05)
 
 
