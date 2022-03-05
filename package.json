@@ -6,7 +6,8 @@
     "build": "next build",
     "format": "prettier --write --ignore-unknown **/*",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --cache",
+    "lint:fix": "next lint --cache --fix"
   },
   "dependencies": {
     "axios": "^0.26.0",
@@ -31,6 +32,9 @@
     "eslint": "^8.8.0",
     "eslint-config-next": "^12.0.10",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
