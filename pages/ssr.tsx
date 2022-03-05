@@ -7,19 +7,23 @@ import Link from 'next/link';
 
 interface Props extends DefaultProps {
   encodedTime: string;
+  isErred: boolean;
 }
 
-const SSR: NextPage<Props> = ({ encodedTime, setTodos, todos }) => {
+const SSR: NextPage<Props> = ({ encodedTime, isErred, setTodos, todos }) => {
   const t = useTranslations();
-  const timestamp = new Date(encodedTime);
 
   return (
     <Layout setTodos={setTodos} todos={todos}>
       <section className="main">
         <p>
-          <time dateTime={encodedTime}>
-            {t('The time is t', { timestamp })}
-          </time>
+          {isErred ? (
+            <span>{t('The time is loading')}</span>
+          ) : (
+            <time dateTime={encodedTime}>
+              {t('The time is t', { timestamp: new Date(encodedTime) })}
+            </time>
+          )}
         </p>
         <p>
           <Link href="/">{t('todos')}</Link>
@@ -32,10 +36,22 @@ const SSR: NextPage<Props> = ({ encodedTime, setTodos, todos }) => {
 export const getServerSideProps: GetServerSideProps<Partial<Props>> = async ({
   locale,
 }) => {
+  let currentTime: Date;
+  let encodedTime: string = '';
+  let isErred = false;
+
+  try {
+    currentTime = await getCurrentTime();
+    encodedTime = currentTime.toISOString();
+  } catch (error) {
+    isErred = true;
+  }
+
   return {
     props: {
+      encodedTime,
+      isErred,
       messages: (await import(`../messages/${locale}.json`)).default,
-      encodedTime: (await getCurrentTime()).toISOString(),
     },
   };
 };
