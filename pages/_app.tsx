@@ -1,11 +1,12 @@
 import '../styles/globals.css';
+import { List } from 'immutable';
+import { NextIntlProvider } from 'next-intl';
 import type { AppProps } from 'next/app';
 import 'todomvc-app-css/index.css';
 import { useState } from 'react';
-import { Todo } from '../models/todo';
-import { List } from 'immutable';
+
 import { add } from '../models/store';
-import { NextIntlProvider } from 'next-intl';
+import { Todo } from '../models/todo';
 
 export interface DefaultProps {
   setTodos: (todos: List<Todo>) => void;
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [todos, setTodos] = useState(initialTodos);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     <NextIntlProvider messages={pageProps.messages}>
       <Component {...pageProps} setTodos={setTodos} todos={todos} />
     </NextIntlProvider>

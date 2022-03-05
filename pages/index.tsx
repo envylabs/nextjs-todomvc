@@ -1,10 +1,13 @@
 import { List } from 'immutable';
 import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+
+import Layout from '../components/layout';
 import TodoList from '../components/todo-list';
 import { Filter, Toolbar } from '../components/toolbar';
 import { Todo } from '../models/todo';
-import Layout from '../components/layout';
+import { loadMessages } from '../utils/load-messages';
+
 import { DefaultProps } from './_app';
 
 function normalizeFilter(filter: unknown): Filter {
@@ -16,6 +19,7 @@ function normalizeFilter(filter: unknown): Filter {
     case undefined:
       return 'all';
     default:
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Unexpected filter type: ${filter}`);
   }
 }
@@ -55,7 +59,7 @@ const Home: NextPage<DefaultProps> = ({ setTodos, todos }) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`../messages/${locale}.json`)).default,
+      messages: await loadMessages(locale),
     },
   };
 };

@@ -1,9 +1,12 @@
 import type { GetStaticProps, NextPage } from 'next';
-import Layout from '../components/layout';
-import { DefaultProps } from './_app';
-import { CurrentTime } from '../components/current-time';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+
+import { CurrentTime } from '../components/current-time';
+import Layout from '../components/layout';
+import { loadMessages } from '../utils/load-messages';
+
+import { DefaultProps } from './_app';
 
 const CSR: NextPage<DefaultProps> = ({ setTodos, todos }) => {
   const t = useTranslations();
@@ -25,7 +28,7 @@ const CSR: NextPage<DefaultProps> = ({ setTodos, todos }) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`../messages/${locale}.json`)).default,
+      messages: await loadMessages(locale),
     },
   };
 };

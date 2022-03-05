@@ -1,9 +1,12 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import { getCurrentTime } from '../models/world-time-api';
 import { useTranslations } from 'next-intl';
-import Layout from '../components/layout';
-import { DefaultProps } from './_app';
 import Link from 'next/link';
+
+import Layout from '../components/layout';
+import { getCurrentTime } from '../models/world-time-api';
+import { loadMessages } from '../utils/load-messages';
+
+import { DefaultProps } from './_app';
 
 interface Props extends DefaultProps {
   encodedTime: string;
@@ -51,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<Partial<Props>> = async ({
     props: {
       encodedTime,
       isErred,
-      messages: (await import(`../messages/${locale}.json`)).default,
+      messages: await loadMessages(locale),
     },
   };
 };

@@ -1,10 +1,12 @@
 import { List } from 'immutable';
-import Head from 'next/head';
-import { FC } from 'react';
-import { Todo } from '../models/todo';
-import NewTodo from './new-todo';
 import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 import Link from 'next/link';
+import { FC } from 'react';
+
+import { Todo } from '../models/todo';
+
+import NewTodo from './new-todo';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;

@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { isLeft } from 'fp-ts/lib/Either';
+import * as t from 'io-ts';
+import prettyReporter from 'io-ts-reporters';
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import useSWR, { Fetcher } from 'swr';
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/lib/Either';
-import prettyReporter from 'io-ts-reporters';
+
 import { ResponsePayload } from '../pages/api/current-time';
 import { isServer } from '../utils/is-server';
 

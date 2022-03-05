@@ -1,9 +1,10 @@
-import type { NextApiHandler } from 'next';
-import { getCurrentTime } from '../../models/world-time-api';
-import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/lib/Either';
+import * as t from 'io-ts';
 import { optional, sparseType } from 'io-ts-extra';
 import prettyReporter from 'io-ts-reporters';
+import type { NextApiHandler } from 'next';
+
+import { getCurrentTime } from '../../models/world-time-api';
 
 export const RequestPayload = sparseType({
   timezone: optional(t.string),
@@ -21,7 +22,7 @@ const handler: NextApiHandler = async (request, response) => {
 
   if (method !== 'GET') {
     response.setHeader('Allow', ['GET']);
-    response.status(405).end(`Method ${method} Not Allowed`);
+    response.status(405).end(`Method Not Allowed`);
     return;
   }
 

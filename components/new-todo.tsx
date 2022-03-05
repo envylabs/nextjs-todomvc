@@ -1,4 +1,5 @@
 import { List } from 'immutable';
+import { useTranslations } from 'next-intl';
 import {
   ChangeEventHandler,
   FC,
@@ -7,9 +8,9 @@ import {
   useRef,
   useState,
 } from 'react';
+
 import { add } from '../models/store';
 import { Todo } from '../models/todo';
-import { useTranslations } from 'next-intl';
 
 interface Props {
   setTodos: (todos: List<Todo>) => void;

@@ -1,3 +1,6 @@
+import classNames from 'classnames';
+import { List } from 'immutable';
+import { useTranslations } from 'next-intl';
 import {
   ChangeEventHandler,
   FC,
@@ -6,11 +9,9 @@ import {
   MouseEventHandler,
   useState,
 } from 'react';
-import { Todo as TodoModel } from '../models/todo';
-import classNames from 'classnames';
-import { List } from 'immutable';
+
 import { remove, update } from '../models/store';
-import { useTranslations } from 'next-intl';
+import { Todo as TodoModel } from '../models/todo';
 
 interface Props {
   setTodos: (todos: List<TodoModel>) => void;

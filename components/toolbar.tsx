@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import { List } from 'immutable';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FC, MouseEventHandler } from 'react';
+
 import { removeCompleted } from '../models/store';
 import { Todo } from '../models/todo';
-import { useTranslations } from 'next-intl';
 
 export type Filter = 'all' | 'active' | 'completed';
 
