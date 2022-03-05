@@ -3,6 +3,7 @@ import * as t from 'io-ts';
 import api from './world-time-api.timezones.json';
 import prettyReporter from 'io-ts-reporters';
 import axios, { AxiosResponse } from 'axios';
+import { optional, sparseType } from 'io-ts-extra';
 
 function keyObject<T extends readonly string[]>(
   array: T
@@ -12,16 +13,16 @@ function keyObject<T extends readonly string[]>(
 
 const DEFAULT_TIME_ZONE = 'America/New_York';
 
-const WorldTimeAPIResponse = t.type({
+const WorldTimeAPIResponse = sparseType({
   abbreviation: t.string,
   client_ip: t.string,
   datetime: t.string,
   day_of_week: t.number,
   day_of_year: t.number,
   dst: t.boolean,
-  dst_from: t.union([t.string, t.null]),
+  dst_from: optional(t.string),
   dst_offset: t.number,
-  dst_until: t.union([t.string, t.null]),
+  dst_until: optional(t.string),
   raw_offset: t.number,
   timezone: t.keyof(keyObject(api.timezones)),
   unixtime: t.number,
