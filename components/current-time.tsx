@@ -24,7 +24,7 @@ const currentTimeFetcher: Fetcher<Date> = async (
 };
 
 export const useCurrentTime = () => {
-  const { data: time, error } = useSWR('api/current-time', currentTimeFetcher);
+  const { data: time, error } = useSWR('/api/current-time', currentTimeFetcher);
 
   return {
     time,
