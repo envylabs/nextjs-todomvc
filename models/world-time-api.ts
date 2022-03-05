@@ -44,7 +44,7 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
 
   try {
     response = await axios.get(
-      `https://worldtimeapi.org/api/timezone/${timezone}`,
+      `http://worldtimeapi.org/api/timezone/${timezone}`,
       { timeout: 5000 }
     );
   } catch (error) {
