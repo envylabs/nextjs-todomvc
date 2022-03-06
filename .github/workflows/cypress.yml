@@ -21,3 +21,6 @@ name: "Cypress"
   push:
     branches:
       - "cypress"
+  pull_request:
+    branches:
+      - "cypress"
