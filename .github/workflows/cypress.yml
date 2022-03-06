@@ -1,0 +1,21 @@
+---
+jobs:
+  cypress:
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: "actions/checkout@v2"
+      - name: "Cypress Run"
+        uses: "cypress-io/github-action@v2"
+        with:
+          build: "npm run build:ci"
+          command: "npm run cypress:headless"
+          start: "npm start:ci"
+          wait-on: "http://localhost:3000"
+
+name: "Cypress"
+
+"on":
+  push:
+    branches:
+      - "cypress"
