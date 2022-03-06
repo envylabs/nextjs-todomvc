@@ -6,9 +6,12 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
       - name: "Cypress Run"
+        env:
+          PERCY_TOKEN: "${{ secrets.PERCY_TOKEN }}"
         uses: "cypress-io/github-action@v2"
         with:
           build: "npm run build:ci"
+          command: "npm run cypress:ci"
           start: "npm run start:ci"
           wait-on: "http://localhost:3000"
 
