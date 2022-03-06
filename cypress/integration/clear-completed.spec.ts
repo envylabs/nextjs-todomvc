@@ -6,7 +6,12 @@ describe('Clear Completed', () => {
   it('removes completed todos when clicked', () => {
     cy.fillIn('What needs to be done?', 'Todo #1');
     cy.toggle('Complete Todo #1');
+
+    cy.contains('Todo #1').should('exist');
+
     cy.Click('Clear completed');
+
+    cy.contains('Todo #1').should('not.exist');
   });
 
   it('is hidden with no completed todos', () => {
