@@ -6,17 +6,17 @@ describe('Editing', () => {
   it('edits a todo by double-clicking its title', () => {
     cy.fillIn('What needs to be done?', 'Todo #1');
 
-    cy.get('[aria-label="Edit Todo #1"').should('not.exist');
+    cy.findControls('text', 'Edit Todo #1').should('not.exist');
 
     cy.doubleClick('Todo #1');
 
-    cy.get('[aria-label="Edit Todo #1"').should('exist');
+    cy.findControl('text', 'Edit Todo #1').should('exist');
   });
 
   it('focuses on the todo title input when editing', () => {
     cy.fillIn('What needs to be done?', 'Todo #1');
     cy.doubleClick('Todo #1');
-    cy.get('[aria-label="Edit Todo #1"').should('have.focus');
+    cy.findControl('text', 'Edit Todo #1').should('have.focus');
   });
 
   it('changes a todo title with ENTER', () => {

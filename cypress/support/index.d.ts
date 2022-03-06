@@ -25,6 +25,12 @@ declare namespace Cypress {
     findControl(selector: string, label: string): Chainable<any>;
 
     /**
+     * Find all elements by type and label.
+     *
+     */
+    findControls(selector: string, label: string): Chainable<any>;
+
+    /**
      * Toggle a toggleable item by label.
      */
     toggle(label: string): Chainable<any>;

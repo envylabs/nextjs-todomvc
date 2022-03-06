@@ -31,7 +31,7 @@ function isLabelledElement(element: unknown): element is HTMLInputElement {
   return typeof (element as HTMLInputElement).labels === 'object';
 }
 
-Cypress.Commands.add('findControl', (selector: string, label: string) => {
+Cypress.Commands.add('findControls', (selector: string, label: string) => {
   return cy
     .get(selectors[selector].join(','), { log: false })
     .then((elements) => {
@@ -53,18 +53,21 @@ Cypress.Commands.add('findControl', (selector: string, label: string) => {
           }
         }
       });
-    })
-    .then((elements) => {
-      if (elements.length === 0)
-        throw new Error(`no matching label found: ${label}`);
-
-      if (elements.length > 1)
-        throw new Error(
-          `ambiguous label (${elements.length} elements found): ${label}`
-        );
-
-      return cy.wrap(elements, { log: false });
     });
+});
+
+Cypress.Commands.add('findControl', (selector: string, label: string) => {
+  return cy.findControls(selector, label).then((elements) => {
+    if (elements.length === 0)
+      throw new Error(`no matching label found: ${label}`);
+
+    if (elements.length > 1)
+      throw new Error(
+        `ambiguous label (${elements.length} elements found): ${label}`
+      );
+
+    return cy.wrap(elements, { log: false });
+  });
 });
 
 Cypress.Commands.add('Click', (label: string) => {
