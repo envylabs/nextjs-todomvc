@@ -10,7 +10,7 @@ jobs:
         with:
           build: "npm run build:ci"
           command: "npm run cypress:headless"
-          start: "npm start:ci"
+          start: "npm run start:ci"
           wait-on: "http://localhost:3000"
 
 name: "Cypress"
