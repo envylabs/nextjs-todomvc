@@ -1,3 +1,13 @@
+# [0.4.0](https://github.com/envylabs/nextjs-todomvc/compare/v0.3.1...v0.4.0) (2022-03-06)
+
+
+### Features
+
+* add button role to double-clickable todo label ([0a12ccd](https://github.com/envylabs/nextjs-todomvc/commit/0a12ccd13a21281e0282ff95efa95de8825aa109))
+* only generate initial todos in development mode ([fedaee4](https://github.com/envylabs/nextjs-todomvc/commit/fedaee47218ff3cfa0eab2a3012a94628ea56b26))
+
+
+
 ## [0.3.1](https://github.com/envylabs/nextjs-todomvc/compare/v0.3.0...v0.3.1) (2022-03-05)
 
 
