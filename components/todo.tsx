@@ -84,7 +84,9 @@ const Todo: FC<Props> = ({ setTodos, todo, todos }) => {
             checked={todo.isComplete}
             onChange={toggleIsComplete}
           />
-          <label onDoubleClick={toggleEditing}>{todo.title}</label>
+          <label onDoubleClick={toggleEditing} role="button">
+            {todo.title}
+          </label>
           <button
             aria-label={t('Remove title', { title: todo.title })}
             className="destroy"
