@@ -4,6 +4,7 @@
   "scripts": {
     "build:ci": "NEXT_PUBLIC_APP_ENV=test next build",
     "build": "next build",
+    "cypress:ci": "percy exec -- cypress run",
     "cypress:headless": "cypress run",
     "cypress": "cypress open",
     "dev": "next dev",
