@@ -13,8 +13,9 @@ export interface DefaultProps {
   todos: List<Todo>;
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
-  let initialTodos = List<Todo>([]);
+let initialTodos = List<Todo>([]);
+
+if (process.env.NEXT_PUBLIC_APP_ENV === 'development') {
   initialTodos = add(initialTodos, {
     title: 'Taste JavaScript',
     isComplete: true,
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     title: 'Buy a unicorn',
     isComplete: false,
   });
+}
 
+function MyApp({ Component, pageProps }: AppProps) {
   const [todos, setTodos] = useState(initialTodos);
 
   return (
