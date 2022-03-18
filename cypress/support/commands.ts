@@ -128,3 +128,11 @@ Cypress.Commands.add('toggle', (label: string) => {
       cmd.snapshot().end();
     });
 });
+
+Cypress.Commands.add('clearMockedResponses', () => {
+  cy.task('response:mock:clear', undefined, { log: false });
+});
+
+Cypress.Commands.add('mockResponse', ({ body, method, status, url }) => {
+  cy.task('response:mock', { body, method, status, url }, { log: false });
+});

@@ -34,5 +34,42 @@ declare namespace Cypress {
      * Toggle a toggleable item by label.
      */
     toggle(label: string): Chainable<any>;
+
+    /**
+     * Remove any created mocked responses.
+     */
+    clearMockedResponses(): Chainable<any>;
+
+    /**
+     * Create a mocked response for a request.
+     */
+    mockResponse({
+      body,
+      method,
+      status,
+      url,
+    }: {
+      body: string | Buffer;
+      method: 'get';
+      status: number;
+      url: string | URL;
+    }): Chainable<any>;
+
+    task<S = unknown>(
+      event: 'response:mock',
+      arg: {
+        body: string | Buffer;
+        method: 'get';
+        status: number;
+        url: string | URL;
+      },
+      options?: Partial<Loggable & Timeoutable>
+    ): Chainable<S>;
+
+    task<S = unknown>(
+      event: 'response:mock:clear',
+      arg: unknown,
+      options?: Partial<Loggable & Timeoutable>
+    ): Chainable<S>;
   }
 }
