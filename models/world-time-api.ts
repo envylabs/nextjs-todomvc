@@ -1,9 +1,10 @@
+import axios, { AxiosResponse } from 'axios';
 import { isLeft } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
-import api from './world-time-api.timezones.json';
-import prettyReporter from 'io-ts-reporters';
-import axios, { AxiosResponse } from 'axios';
 import { optional, sparseType } from 'io-ts-extra';
+import prettyReporter from 'io-ts-reporters';
+
+import api from './world-time-api.timezones.json';
 
 function keyObject<T extends readonly string[]>(
   array: T
@@ -38,16 +39,10 @@ export function isKnownTimezone(timezone: string): boolean {
 export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   let response: AxiosResponse;
   timezone = timezone || DEFAULT_TIME_ZONE;
-
-  if (!isKnownTimezone(timezone)) {
-    throw new Error(`Unknown timezone requested: ${timezone}`);
-  }
+  const url = urlFor(timezone);
 
   try {
-    response = await axios.get(
-      `http://worldtimeapi.org/api/timezone/${timezone}`,
-      { timeout: 5000 }
-    );
+    response = await axios.get(url, { timeout: 5000 });
   } catch (error) {
     console.error(error);
     throw error;
@@ -60,4 +55,17 @@ export async function getCurrentTime(timezone?: string | null): Promise<Date> {
   }
 
   return new Date(parsedResponseBody.right.datetime);
+}
+
+export function urlFor(timezone: string): string {
+  if (!isKnownTimezone(timezone)) {
+    throw new Error(`Unknown timezone requested: ${timezone}`);
+  }
+
+  const url = new URL(
+    `/api/timezone/${timezone}`,
+    process.env.NEXT_PUBLIC_WORLD_TIME_API_URL
+  );
+
+  return url.toString();
 }
