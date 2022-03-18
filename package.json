@@ -2,7 +2,7 @@
   "name": "todo-mvc",
   "private": true,
   "scripts": {
-    "build:ci": "NEXT_PUBLIC_APP_ENV=test next build",
+    "build:ci": "NODE_ENV=test next build",
     "build": "next build",
     "cypress:ci": "percy exec -- cypress run",
     "cypress:headless": "cypress run",
@@ -11,9 +11,9 @@
     "format": "prettier --write --ignore-unknown **/*",
     "lint:fix": "next lint --cache --fix",
     "lint": "next lint --cache",
-    "start:ci": "NEXT_PUBLIC_APP_ENV=test next start",
+    "start:ci": "NODE_ENV=test next start",
     "start": "next start",
-    "test:dev": "NEXT_PUBLIC_APP_ENV=test start-server-and-test dev http://localhost:3000 cypress",
+    "test:dev": "NODE_ENV=test start-server-and-test dev http://localhost:3000 cypress",
     "test:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
     "test": "start-server-and-test start http://localhost:3000 cypress"
   },
