@@ -33,6 +33,10 @@ describe('Client-Side Network', () => {
 
     cy.visit('/');
     cy.Click('client-side request');
-    cy.contains('The time is March 17, 2022 at 7:34:17 PM EDT').should('exist');
+    cy.contains('The time is').should(
+      'have.attr',
+      'datetime',
+      '2022-03-17T23:34:17.689Z'
+    );
   });
 });
