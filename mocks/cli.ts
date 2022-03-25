@@ -17,6 +17,7 @@ server.listen({ hostname, port }).then(
   },
   () => {
     console.error('Mock server failed to start.');
+    process.exit(1);
   }
 );
 
