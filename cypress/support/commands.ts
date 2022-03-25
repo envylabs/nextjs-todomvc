@@ -31,9 +31,9 @@ function isLabelledElement(element: unknown): element is HTMLInputElement {
   return typeof (element as HTMLInputElement).labels === 'object';
 }
 
-Cypress.Commands.add('findControls', (selector: string, label: string) => {
+Cypress.Commands.add('findControls', (selector, label) => {
   return cy
-    .get(selectors[selector].join(','), { log: false })
+    .get<HTMLElement>(selectors[selector].join(','), { log: false })
     .then((elements) => {
       return elements.filter((_, element) => {
         if (
@@ -56,7 +56,7 @@ Cypress.Commands.add('findControls', (selector: string, label: string) => {
     });
 });
 
-Cypress.Commands.add('findControl', (selector: string, label: string) => {
+Cypress.Commands.add('findControl', (selector, label) => {
   return cy.findControls(selector, label).then((elements) => {
     if (elements.length === 0)
       throw new Error(`no matching label found: ${label}`);
@@ -70,7 +70,7 @@ Cypress.Commands.add('findControl', (selector: string, label: string) => {
   });
 });
 
-Cypress.Commands.add('Click', (label: string) => {
+Cypress.Commands.add('Click', (label) => {
   const cmd = Cypress.log({ name: 'click', message: label });
 
   cy.findControl('button', label)
@@ -83,7 +83,7 @@ Cypress.Commands.add('Click', (label: string) => {
     });
 });
 
-Cypress.Commands.add('doubleClick', (label: string) => {
+Cypress.Commands.add('doubleClick', (label) => {
   const cmd = Cypress.log({ name: 'double-click', message: label });
 
   cy.findControl('button', label)
@@ -96,27 +96,20 @@ Cypress.Commands.add('doubleClick', (label: string) => {
     });
 });
 
-Cypress.Commands.add(
-  'fillIn',
-  (
-    label: string,
-    value: string,
-    options: { enter: boolean } = { enter: true }
-  ) => {
-    const cmd = Cypress.log({ name: 'fill in', message: label });
+Cypress.Commands.add('fillIn', (label, value, options = { enter: true }) => {
+  const cmd = Cypress.log({ name: 'fill in', message: label });
 
-    cy.findControl('text', label)
-      .then((element) => {
-        cmd.set({ $el: element }).snapshot();
-      })
-      .type(`${value}${options.enter ? '{enter}' : ''}`, { log: false })
-      .then((element) => {
-        cmd.snapshot().end();
-      });
-  }
-);
+  cy.findControl('text', label)
+    .then((element) => {
+      cmd.set({ $el: element }).snapshot();
+    })
+    .type(`${value}${options.enter ? '{enter}' : ''}`, { log: false })
+    .then((element) => {
+      cmd.snapshot().end();
+    });
+});
 
-Cypress.Commands.add('toggle', (label: string) => {
+Cypress.Commands.add('toggle', (label) => {
   const cmd = Cypress.log({ name: 'toggle', message: label });
 
   cy.findControl('toggle', label)
@@ -127,4 +120,16 @@ Cypress.Commands.add('toggle', (label: string) => {
     .then((element) => {
       cmd.snapshot().end();
     });
+});
+
+Cypress.Commands.add('factoryCreate', (service, factory, props) => {
+  cy.task('factory:create', { service, factory, props }, { log: false });
+});
+
+Cypress.Commands.add('clearFactories', () => {
+  cy.task('factory:clear', {}, { log: false });
+});
+
+Cypress.Commands.add('loadScenario', (name) => {
+  cy.task('scenario:load', { name }, { log: false });
 });

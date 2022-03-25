@@ -31,8 +31,42 @@ declare namespace Cypress {
     findControls(selector: string, label: string): Chainable<any>;
 
     /**
-     * Toggle a toggleable item by label.
+     * Toggle a togglable item by label.
      */
     toggle(label: string): Chainable<any>;
+
+    /**
+     * Create a one-off model.
+     */
+    factoryCreate(
+      service: string,
+      factory: string,
+      props: any
+    ): Chainable<Subject>;
+
+    loadScenario(name: string): Chainable<Subject>;
+
+    /**
+     * Empty all Factory data.
+     */
+    clearFactories(): Chainable<Subject>;
+
+    task(
+      event: 'factory:create',
+      arg: { factory: string; model: string; props: any },
+      options?: Partial<Loggable & Timeoutable>
+    ): Chainable<Subject>;
+
+    task(
+      event: 'factory:clear',
+      arg: {},
+      options?: Partial<Loggable & Timeoutable>
+    ): Chainable<Subject>;
+
+    task(
+      event: 'scenario:load',
+      arg: { name: string },
+      options?: Partial<Loggable & Timeoutable>
+    ): Chainable<Subject>;
   }
 }
