@@ -11,6 +11,7 @@
     "format": "prettier --write --ignore-unknown **/*",
     "lint:fix": "next lint --cache --fix",
     "lint": "next lint --cache",
+    "mock": "npx ts-node ./mocks/cli.ts",
     "start:ci": "NODE_ENV=test next start",
     "start": "next start",
     "test:dev": "NODE_ENV=test start-server-and-test dev http://localhost:3000 cypress",
