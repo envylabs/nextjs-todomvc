@@ -122,14 +122,18 @@ Cypress.Commands.add('toggle', (label) => {
     });
 });
 
-Cypress.Commands.add('factoryCreate', (service, factory, props) => {
-  cy.task('factory:create', { service, factory, props }, { log: false });
+Cypress.Commands.add('create', (serviceName, factoryName, props) => {
+  cy.task(
+    'factory:create',
+    { serviceName, factoryName, props },
+    { log: false }
+  );
 });
 
-Cypress.Commands.add('clearFactories', () => {
-  cy.task('factory:clear', {}, { log: false });
+Cypress.Commands.add('stopMockServers', () => {
+  cy.task('mocks:stop', {}, { log: false });
 });
 
-Cypress.Commands.add('loadScenario', (name) => {
+Cypress.Commands.add('scenario', (name) => {
   cy.task('scenario:load', { name }, { log: false });
 });

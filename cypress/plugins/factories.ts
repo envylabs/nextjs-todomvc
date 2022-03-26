@@ -1,42 +1,52 @@
-import { createServer, Server } from '../../mocks';
+import { ServerResult, startServers } from '../../mocks';
 import { Name } from '../../mocks/scenarios';
+import {
+  ServiceModelValues,
+  ServiceFactoryMap,
+  ServiceModelDictionaries,
+} from '../../mocks/services';
 
-let _server: Server | undefined;
+let _serverResult: ServerResult | undefined;
 
-async function getServer(): Promise<Server> {
-  if (!_server) {
-    _server = createServer({});
-    _server.listen({ hostname: 'localhost', port: 3001 });
+async function getServerResult(): Promise<ServerResult> {
+  if (!_serverResult) {
+    _serverResult = await startServers({});
   }
 
-  return _server;
+  return _serverResult;
 }
 
-async function factoryCreate({
-  service,
-  factory,
+async function factoryCreate<
+  S extends keyof ServiceFactoryMap,
+  F extends keyof ServiceFactoryMap[S],
+  D extends keyof ServiceModelDictionaries[S],
+  P extends ServiceModelValues<S, D>
+>({
+  serviceName,
+  factoryName,
   props,
 }: {
-  service: string;
-  factory: string;
-  props: any;
-}): Promise<any> {
-  const server = await getServer();
-  return server.db.modelsFor(service, factory).create(props);
-}
-
-async function clearFactories(): Promise<void> {
-  if (_server) {
-    await _server.stop();
-    _server = undefined;
-  }
-
-  return null;
+  serviceName: S;
+  factoryName: F;
+  props?: P;
+}) {
+  const server = await getServerResult();
+  const factory = server.db.modelsFor(serviceName, factoryName);
+  return (factory as any).create(props);
 }
 
 async function loadScenario({ name }: { name: Name }): Promise<void> {
-  const server = await getServer();
+  const server = await getServerResult();
   await server.db.loadScenario(name);
+  return null;
+}
+
+async function stopServers(): Promise<void> {
+  if (_serverResult) {
+    await _serverResult.stop();
+    _serverResult = undefined;
+  }
+
   return null;
 }
 
@@ -45,7 +55,7 @@ export function setupFactoryTasks(
   _config: Cypress.PluginConfigOptions
 ): void {
   on('task', {
-    'factory:clear': clearFactories,
+    'mocks:stop': stopServers,
     'factory:create': factoryCreate,
     'scenario:load': loadScenario,
   });

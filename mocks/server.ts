@@ -13,29 +13,34 @@ export class Server {
   private readonly _app: Express;
   private readonly _server: HTTPServer;
   private readonly _handlers: RestHandler[] = [];
+  private readonly _hostname: string;
+  private readonly _port: number;
+  readonly db: DB;
 
-  constructor(public readonly db: DB) {
+  constructor({
+    db,
+    handlers,
+    hostname = 'localhost',
+    port,
+  }: {
+    db: DB;
+    handlers: RestHandler[];
+    hostname?: string;
+    port: number;
+  }) {
+    this.db = db;
+    this._handlers = handlers;
+    this._hostname = hostname;
+    this._port = port;
+
     this._app = express();
+    this._app.use(createMiddleware(...this._handlers));
     this._server = createServer(this._app);
   }
 
-  async listen(
-    { hostname, port }: { hostname: string; port: number } = {
-      hostname: 'localhost',
-      port: 3001,
-    }
-  ): Promise<void> {
-    this._app.use(createMiddleware(...this._handlers));
-    this._server.listen(port, hostname);
+  async listen(): Promise<void> {
+    this._server.listen(this._port, this._hostname);
     return Promise.resolve();
-  }
-
-  register(handlers: RestHandler[]): void {
-    this._handlers.push(...handlers);
-  }
-
-  reset(): void {
-    this.db.clear();
   }
 
   async stop(): Promise<void> {

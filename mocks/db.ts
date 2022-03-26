@@ -1,16 +1,8 @@
-import { drop } from '@mswjs/data';
-import { FactoryAPI, ModelAPI } from '@mswjs/data/lib/glossary';
-
 import { Name as ScenarioName, scenarios } from './scenarios';
+import { ServiceFactory, ServiceFactoryMap, factories } from './services';
 
 export class DB {
-  private readonly _factories: Record<string, FactoryAPI<any>> = {};
-
-  clear(): void {
-    for (const serviceName in this._factories) {
-      drop(this._factories[serviceName]);
-    }
-  }
+  constructor(private readonly _factories: ServiceFactoryMap = factories()) {}
 
   loadScenario(name: ScenarioName): void {
     const scenario = scenarios[name];
@@ -22,29 +14,26 @@ export class DB {
     scenario(this);
   }
 
-  modelsFor(serviceName: string, factoryName: string): ModelAPI<any, any> {
+  modelsFor<
+    S extends keyof ServiceFactoryMap,
+    F extends keyof ServiceFactory<S>
+  >(serviceName: S, factoryName: F) {
     const service = this._factories[serviceName];
 
     if (!service) {
-      throw new Error(`Unrecognized service requested: ${serviceName}`);
+      throw new Error(`Unrecognized service requested: ${String(serviceName)}`);
     }
 
     const factory = service[factoryName];
 
     if (!factory) {
       throw new Error(
-        `Unrecognized factory requested: ${serviceName}, ${factoryName.toString()}`
+        `Unrecognized factory requested: ${String(serviceName)}, ${String(
+          factoryName
+        )}`
       );
     }
 
     return factory;
-  }
-
-  register(service: string, factories: FactoryAPI<any>): void {
-    if (this._factories[service]) {
-      throw new Error(`Factory already registered at ${service}`);
-    }
-
-    this._factories[service] = factories;
   }
 }

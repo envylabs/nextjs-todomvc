@@ -1,30 +1,49 @@
 import { DB } from './db';
 import { Name as ScenarioName } from './scenarios';
 import { Server } from './server';
-import { Name as ServiceName, factories, handlers } from './services';
+import { routeHandlers } from './services';
 
 export { Server } from './server';
 
-type ServerOptions = {
+interface ServerOptions {
+  hostname?: string;
   scenarioName?: ScenarioName;
-};
+}
 
-export function createServer({ scenarioName }: ServerOptions): Server {
+export interface ServerResult {
+  db: DB;
+  stop(): Promise<void>;
+}
+
+export async function startServers({
+  hostname = 'localhost',
+  scenarioName,
+}: ServerOptions): Promise<ServerResult> {
+  const servers: Server[] = [];
   const db = new DB();
-
-  for (const name in factories) {
-    db.register(name, factories[name as ServiceName]());
-  }
-
-  const server = new Server(db);
-
-  for (const name in handlers) {
-    server.register(handlers[name as ServiceName](db));
-  }
 
   if (scenarioName) {
     db.loadScenario(scenarioName);
   }
 
-  return server;
+  for (const name in routeHandlers) {
+    const routeHandler = routeHandlers[name as keyof typeof routeHandlers];
+    const server = new Server({
+      db,
+      handlers: routeHandler.handler(db),
+      hostname,
+      port: routeHandler.port,
+    });
+    await server.listen();
+    servers.push(server);
+  }
+
+  return {
+    db,
+    stop: async () => {
+      for (const server of servers) {
+        await server.stop();
+      }
+    },
+  };
 }
