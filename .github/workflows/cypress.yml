@@ -21,6 +21,8 @@ name: "Cypress"
   push:
     branches:
       - "cypress"
+      - "cypress-with-msw-proxy"
   pull_request:
     branches:
       - "cypress"
+      - "cypress-with-msw-proxy"
