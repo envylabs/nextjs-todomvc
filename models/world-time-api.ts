@@ -1,15 +1,10 @@
+import axios, { AxiosResponse } from 'axios';
 import { isLeft } from 'fp-ts/lib/Either';
 import * as t from 'io-ts';
-import api from './world-time-api.timezones.json';
-import prettyReporter from 'io-ts-reporters';
-import axios, { AxiosResponse } from 'axios';
 import { optional, sparseType } from 'io-ts-extra';
+import prettyReporter from 'io-ts-reporters';
 
-function keyObject<T extends readonly string[]>(
-  array: T
-): { [K in T[number]]: null } {
-  return Object.fromEntries(array.map((value) => [value, null])) as any;
-}
+import api from './world-time-api.timezones.json';
 
 const DEFAULT_TIME_ZONE = 'America/New_York';
 
@@ -24,7 +19,7 @@ const WorldTimeAPIResponse = sparseType({
   dst_offset: t.number,
   dst_until: optional(t.string),
   raw_offset: t.number,
-  timezone: t.keyof(keyObject(api.timezones)),
+  timezone: t.string,
   unixtime: t.number,
   utc_datetime: t.string,
   utc_offset: t.string,
