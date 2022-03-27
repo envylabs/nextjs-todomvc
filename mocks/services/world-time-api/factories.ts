@@ -1,8 +1,6 @@
 import { primaryKey } from '@mswjs/data';
 
-import { Factories } from '../types';
-
-const factories: Factories = {
+const factories = {
   timezone: {
     abbreviation: () => 'EDT',
     client_ip: () => '1.1.1.1',
