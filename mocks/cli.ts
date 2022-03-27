@@ -5,7 +5,9 @@ import { Name as ScenarioName } from './scenarios';
 import { startServers } from '.';
 
 const scenarioName: ScenarioName =
-  (process.argv[2] as ScenarioName) || 'staticTime';
+  (process.argv[2] as ScenarioName) ||
+  process.env.MOCK_SCENARIO ||
+  'staticTime';
 
 console.log(`Starting mock servers with ${scenarioName}`);
 startServers({ hostname: 'localhost', scenarioName })

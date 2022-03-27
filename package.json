@@ -8,6 +8,7 @@
     "cypress:headless": "cypress run",
     "cypress": "cypress open",
     "dev": "next dev",
+    "dev:mock": "NEXT_PUBLIC_WORLD_TIME_API_URL='http://localhost:3001/' concurrently npm:mock npm:dev",
     "format": "prettier --write --ignore-unknown **/*",
     "lint:fix": "next lint --cache --fix",
     "lint": "next lint --cache",
