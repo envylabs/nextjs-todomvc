@@ -23,7 +23,7 @@ const Layout: FC<Props> = ({ children, setTodos, todos }) => {
       </Head>
       <section className="todoapp">
         <header className="header">
-          <h1>{t('todos')}</h1>
+          <h1 style={{ position: 'inherit', color: '#0f0' }}>{t('todos')}</h1>
           <NewTodo setTodos={setTodos} todos={todos} />
         </header>
         {children}
